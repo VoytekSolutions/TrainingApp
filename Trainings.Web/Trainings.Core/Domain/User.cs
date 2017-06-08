@@ -19,10 +19,19 @@ namespace Trainings.Core.Domain
         public User(string email, string userName, string password)
         {
             UserId = Guid.NewGuid();
-            Email = email;
+            Email = email.ToLowerInvariant();
             UserName = UserName;
             Password = password;
             CreatedAt = DateTime.UtcNow;
+        }
+
+        public void UpdateData(User user)
+        {
+            Email = user.Email;
+            FirstName = user.FirstName;
+            Password = user.Password;
+            SecondName = user.SecondName;
+            UserName = user.UserName;
         }
     }
 }
