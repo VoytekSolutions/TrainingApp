@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Trainings.Infrastructure.Services;
+﻿using Microsoft.AspNetCore.Mvc;
 using Trainings.Infrastructure.DTO;
+using Trainings.Infrastructure.Services;
 
 namespace Trainings.Web.Controllers
 {

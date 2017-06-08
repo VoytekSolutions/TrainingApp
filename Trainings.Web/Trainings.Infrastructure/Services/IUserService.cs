@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Trainings.Infrastructure.DTO;
+﻿using Trainings.Infrastructure.DTO;
 
 namespace Trainings.Infrastructure.Services
 {
