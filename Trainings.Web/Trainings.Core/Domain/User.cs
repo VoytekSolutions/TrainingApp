@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Trainings.Core.Domain
 {
@@ -23,6 +24,36 @@ namespace Trainings.Core.Domain
             UserName = UserName;
             Password = password;
             CreatedAt = DateTime.UtcNow;
+        }
+
+        public void SetEmail(string email)
+        {
+            var emailValidator = new EmailAddressAttribute();
+
+            if (emailValidator.IsValid(email))
+            {
+                Email = email;
+            }
+        }
+
+        public void SetPassword(string password)
+        {
+            Password = password;
+        }
+
+        public void SetUserName(string userName)
+        {
+            UserName = userName;
+        }
+
+        public void SetFirstName(string firstName)
+        {
+            FirstName = firstName;
+        }
+
+        public void SetSecondName(string secondName)
+        {
+            SecondName = secondName;
         }
 
         public void UpdateData(User user)

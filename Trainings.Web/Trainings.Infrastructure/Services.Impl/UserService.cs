@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
+using System.Threading.Tasks;
 using Trainings.Core.Domain;
 using Trainings.Core.Repositories;
 using Trainings.Infrastructure.DTO;
@@ -8,15 +10,17 @@ namespace Trainings.Infrastructure.Services.Impl
     public class UserService : IUserService
     {
         private readonly IUserRepository UserRepository;
+        private readonly IMapper Mapper;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IMapper mapper)
         {
             UserRepository = userRepository;
+            Mapper = mapper;
         }
 
-        public void Register(string email, string userName, string password)
+        public async Task RegisterAsync(string email, string userName, string password)
         {
-            var user = UserRepository.GetUserByEmail(email);
+            var user = await UserRepository.GetUserByEmailAsync(email);
 
             if (user != null)
             {
@@ -25,26 +29,19 @@ namespace Trainings.Infrastructure.Services.Impl
 
             user = new User(email, userName, password);
 
-            UserRepository.AddUser(user);
+            await UserRepository.AddUserAsync(user);
         }
 
-        public UserDTO GetUserByEmail(string email)
+        public async Task<UserDTO> GetUserByEmailAsync(string email)
         {
-            var user = UserRepository.GetUserByEmail(email);
+            var user = await UserRepository.GetUserByEmailAsync(email);
 
             if (user == null)
             {
                 throw new Exception($"User with e-mail:{user.Email} doesn't exists.");
             }
 
-            return new UserDTO()
-            {
-                Email = user.Email,
-                FirstName = user.FirstName,
-                SecondName = user.SecondName,
-                UserId = user.UserId,
-                UserName = user.UserName
-            };
+            return Mapper.Map<User, UserDTO>(user);
         }
     }
 }

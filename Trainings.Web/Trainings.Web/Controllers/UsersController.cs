@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using Trainings.Infrastructure.Commands.Users;
 using Trainings.Infrastructure.DTO;
 using Trainings.Infrastructure.Services;
 
@@ -15,9 +17,15 @@ namespace Trainings.Web.Controllers
         }
 
         [HttpGet("{email}")]
-        public UserDTO Get(string email)
+        public async Task<UserDTO> Get(string email)
         {
-            return UserService.GetUserByEmail(email);
+            return await UserService.GetUserByEmailAsync(email);
+        }
+
+        [HttpPost("")]
+        public async Task Post([FromBody] CreateUser request)
+        {
+            await UserService.RegisterAsync(request.Email, request.UserName, request.Password);
         }
     }
 }

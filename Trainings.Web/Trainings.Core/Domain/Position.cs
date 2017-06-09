@@ -9,11 +9,29 @@
         protected Position()
         { }
 
-        public Position(string adress, double longitude, double latitude)
+        private Position(string adress, double longitude, double latitude)
+        {
+            SetAdress(adress);
+            SetLongitude(longitude);
+            SetLatitude(latitude);
+        }
+
+        public void SetAdress(string adress)
         {
             Adress = adress;
+        }
+
+        public void SetLongitude(double longitude)
+        {
             Longitude = longitude;
+        }
+
+        public void SetLatitude(double latitude)
+        {
             Latitude = latitude;
         }
+
+        public static Position Create(string adress, double longitude, double latitude)
+            => new Position(adress, longitude, latitude);
     }
 }

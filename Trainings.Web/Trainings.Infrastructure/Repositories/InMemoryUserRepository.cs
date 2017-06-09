@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Trainings.Core.Domain;
 using Trainings.Core.Repositories;
 
@@ -16,42 +17,44 @@ namespace Trainings.Infrastructure.Repositories
             new User("siema@email.pl","UserName4","Elo")
         };
 
-        public void AddUser(User User)
+        public async Task AddUserAsync(User user)
         {
-            _users.Add(User);
+            await Task.FromResult(_users.Add(user));
         }
 
-        public User GetUserByEmail(string email)
+        public async Task<User> GetUserByEmailAsync(string email)
         {
-            return _users.Single(user => user.Email == email.ToLowerInvariant());
+            return await Task.FromResult(_users.SingleOrDefault(user => user.Email == email.ToLowerInvariant()));
         }
 
-        public User GetUserById(Guid Id)
+        public async Task<User> GetUserByIdAsync(Guid id)
         {
-            return _users.Single(user => user.UserId == Id);
+            return await Task.FromResult(_users.SingleOrDefault(user => user.UserId == id));
         }
 
-        public ICollection<User> GetUsers()
+        public async Task<ICollection<User>> GetUsersAsync()
         {
-            return _users.ToList();
+            return await Task.FromResult(_users.ToList());
         }
 
-        public void RemoveUser(Guid Id)
+        public async Task RemoveUserAsync(Guid id)
         {
-            var user = GetUserById(Id);
+            var user = await GetUserByIdAsync(id);
             if (user != null)
             {
                 _users.Remove(user);
+                await Task.CompletedTask;
             }
         }
 
-        public void UpdateUser(User User)
+        public async Task UpdateUserAsync(User user)
         {
-            var user = GetUserById(User.UserId);
+            var currentUser = await GetUserByIdAsync(user.UserId);
 
-            if (user != null)
+            if (currentUser != null)
             {
-                user.UpdateData(User);
+                currentUser.UpdateData(user);
+                await Task.CompletedTask;
             }
         }
     }

@@ -1,10 +1,11 @@
-﻿using Trainings.Infrastructure.DTO;
+﻿using System.Threading.Tasks;
+using Trainings.Infrastructure.DTO;
 
 namespace Trainings.Infrastructure.Services
 {
     public interface IUserService
     {
-        void Register(string email, string userName, string password);
-        UserDTO GetUserByEmail(string email);
+        Task RegisterAsync(string email, string userName, string password);
+        Task<UserDTO> GetUserByEmailAsync(string email);
     }
 }
