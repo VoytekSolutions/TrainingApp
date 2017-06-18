@@ -1,9 +1,5 @@
 ﻿using AutoMapper;
-using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Trainings.Core.Domain;
 using Trainings.Core.Repositories;

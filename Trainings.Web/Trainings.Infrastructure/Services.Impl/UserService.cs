@@ -36,11 +36,6 @@ namespace Trainings.Infrastructure.Services.Impl
         {
             var user = await UserRepository.GetUserByEmailAsync(email);
 
-            if (user == null)
-            {
-                throw new Exception($"User with e-mail:{user.Email} doesn't exists.");
-            }
-
             return Mapper.Map<User, UserDTO>(user);
         }
     }

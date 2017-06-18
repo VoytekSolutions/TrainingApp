@@ -20,7 +20,7 @@ namespace Trainings.Web.Controllers
         {
             var user = await UserService.GetUserByEmailAsync(email);
 
-            if(user == null)
+            if (user == null)
             {
                 return NotFound();
             }
