@@ -1,33 +1,15 @@
 ﻿using FluentAssertions;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
 using Newtonsoft.Json;
 using System.Net;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Trainings.Infrastructure.Commands.Users;
 using Trainings.Infrastructure.DTO;
-using Trainings.Web;
 using Xunit;
 
 namespace Trainings.IntegrationTests.Controllers
 {
-    public class UserControllerTests
+    public class UserControllerTests : ControllerTestsBase
     {
-        private readonly TestServer Server;
-        private readonly HttpClient Client;
-
-        public UserControllerTests()
-        {
-            Server = new TestServer(new WebHostBuilder()
-                .UseStartup<Startup>()
-                .UseEnvironment("Development")
-                .UseContentRoot("C:\\Projects\\TrainingApp\\Trainings.Web\\Trainings.Web"));
-
-            Client = Server.CreateClient();
-        }
-
         [Fact]
         public async Task GivingValidEmailUserExists()
         {
@@ -90,13 +72,6 @@ namespace Trainings.IntegrationTests.Controllers
             var user = JsonConvert.DeserializeObject<UserDTO>(responseString);
 
             return user;
-        }
-
-        private StringContent GetPayload(object data)
-        {
-            var json = JsonConvert.SerializeObject(data);
-
-            return new StringContent(json, Encoding.UTF8, "application/json");
         }
     }
 }

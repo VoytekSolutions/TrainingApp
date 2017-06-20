@@ -1,16 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Trainings.Infrastructure.Commands;
+using Trainings.Infrastructure.Commands.Impl.Users;
 using Trainings.Infrastructure.Commands.Users;
 using Trainings.Infrastructure.Services;
 
 namespace Trainings.Web.Controllers
 {
-    [Route("[controller]")]
-    public class UsersController : Controller
+    public class UsersController : ApiBaseController
     {
         private readonly IUserService UserService;
 
-        public UsersController(IUserService userService)
+        public UsersController(IUserService userService, ICommandDispatcher commandDispatcher) : base(commandDispatcher)
         {
             UserService = userService;
         }
@@ -29,11 +30,11 @@ namespace Trainings.Web.Controllers
         }
 
         [HttpPost("")]
-        public async Task<IActionResult> Post([FromBody] CreateUser request)
+        public async Task<IActionResult> Post([FromBody] CreateUser command)
         {
-            await UserService.RegisterAsync(request.Email, request.UserName, request.Password);
+            await CommandDispatcher.DispatchAsync(command);
 
-            return Created($"users/{request.Email}", new object());
+            return Created($"users/{command.Email}", new object());
         }
     }
 }
