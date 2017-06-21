@@ -4,7 +4,7 @@ using Trainings.Infrastructure.DTO;
 
 namespace Trainings.Infrastructure.Services
 {
-    public interface IGymService
+    public interface IGymService : IService
     {
         Task RegisterAsync(string name, string email, Position position);
         Task<GymDTO> GetGymByEmailAsync(string email);

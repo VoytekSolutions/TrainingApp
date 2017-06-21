@@ -5,7 +5,7 @@ using Trainings.Core.Domain;
 
 namespace Trainings.Core.Repositories
 {
-    public interface IUserRepository
+    public interface IUserRepository : IRepository
     {
         Task<User> GetUserByIdAsync(Guid Id);
         Task<User> GetUserByEmailAsync(string email);

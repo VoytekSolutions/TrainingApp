@@ -6,7 +6,7 @@ using Trainings.Core.Domain;
 
 namespace Trainings.Core.Repositories
 {
-    public interface IGymRepository
+    public interface IGymRepository : IRepository
     {
         Task<Gym> GetGymByIdAsync(Guid Id);
         Task<Gym> GetGymByEmailAsync(string email);

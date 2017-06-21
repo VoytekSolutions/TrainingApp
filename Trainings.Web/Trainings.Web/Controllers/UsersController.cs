@@ -4,6 +4,7 @@ using Trainings.Infrastructure.Commands;
 using Trainings.Infrastructure.Commands.Impl.Users;
 using Trainings.Infrastructure.Commands.Users;
 using Trainings.Infrastructure.Services;
+using Trainings.Infrastructure.Settings;
 
 namespace Trainings.Web.Controllers
 {

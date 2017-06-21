@@ -8,7 +8,6 @@ using Microsoft.Extensions.Logging;
 using System;
 using Trainings.Core.Repositories;
 using Trainings.Infrastructure.IoC.Modules;
-using Trainings.Infrastructure.Mappers;
 using Trainings.Infrastructure.Repositories;
 using Trainings.Infrastructure.Services;
 using Trainings.Infrastructure.Services.Impl;
@@ -34,16 +33,10 @@ namespace Trainings.Web
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddScoped<IUserRepository, InMemoryUserRepository>();
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IGymRepository, InMemoryGymRepository>();
-            services.AddScoped<IGymService, GymService>();
-            services.AddSingleton(AutoMapperConfig.Initialize());
             services.AddMvc();
-
             var builder = new ContainerBuilder();
             builder.Populate(services);
-            builder.RegisterModule<CommandModule>();
+            builder.RegisterModule(new ContainerModule(Configuration));
             ApplicationContainer = builder.Build();
 
             return new AutofacServiceProvider(ApplicationContainer);
