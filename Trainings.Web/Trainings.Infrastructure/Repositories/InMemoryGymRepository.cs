@@ -11,9 +11,9 @@ namespace Trainings.Infrastructure.Repositories
     {
         private static ISet<Gym> _gyms = new HashSet<Gym>()
         {
-            new Gym("PureJatomi", "pure@jatomi.com", Position.Create("Supersam",1.0,1.0)),
-            new Gym("CitiFit", "city@fit.pl", Position.Create("Rynek",1.0,1.0)),
-            new Gym("FitnessPoint","fitness@point.pl", Position.Create("3Stawy",1.0,1.0))
+            Gym.Create("PureJatomi", "pure@jatomi.com", Position.Create("Supersam",1.0,1.0)),
+            Gym.Create("CitiFit", "city@fit.pl", Position.Create("Rynek",1.0,1.0)),
+            Gym.Create("FitnessPoint","fitness@point.pl", Position.Create("3Stawy",1.0,1.0))
         };
 
         public async Task AddGymAsync(Gym gym)

@@ -4,10 +4,10 @@ using Trainings.Infrastructure.DTO;
 
 namespace Trainings.Infrastructure.Services
 {
-    public interface ITrainerService : IService
+    public interface IPupilService : IService
     {
         Task RegisterAsync(string email, string userName, string password);
-        Task<TrainerDTO> GetTrainerByEmailAsync(string email);
-        Task<ISet<TrainerDTO>> GetTrainers();
+        Task<PupilDTO> GetPupilByEmailAsync(string email);
+        Task<ISet<PupilDTO>> GetPupils();
     }
 }

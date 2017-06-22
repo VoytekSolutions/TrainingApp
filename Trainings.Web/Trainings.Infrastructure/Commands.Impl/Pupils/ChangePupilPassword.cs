@@ -1,6 +1,6 @@
-﻿namespace Trainings.Infrastructure.Commands.Impl.Users
+﻿namespace Trainings.Infrastructure.Commands.Impl.Pupils
 {
-    public class ChangeUserPassword : ICommand
+    public class ChangePupilPassword : ICommand
     {
         public string CurrentPassword { get; set; }
         public string NewPassword { get; set; }

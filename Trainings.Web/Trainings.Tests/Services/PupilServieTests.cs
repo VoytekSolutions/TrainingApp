@@ -8,19 +8,19 @@ using Xunit;
 
 namespace Trainings.Tests.Services
 {
-    public class UserServieTests
+    public class PupilServieTests
     {
         [Fact]
         public async Task RegisterAsyncShouldInvokeAsyncOnRepository()
         {
-            var userRepositoryMock = new Mock<IUserRepository>();
+            var pupilRepositoryMock = new Mock<IPupilRepository>();
             var mapperMock = new Mock<IMapper>();
 
-            var userService = new UserService(userRepositoryMock.Object, mapperMock.Object);
+            var userService = new PupilService(pupilRepositoryMock.Object, mapperMock.Object);
 
             await userService.RegisterAsync("new.email@best.com", "UserName", "SecretPass");
 
-            userRepositoryMock.Verify(x => x.AddUserAsync(It.IsAny<User>()), Times.Once);
+            pupilRepositoryMock.Verify(x => x.AddPupilAsync(It.IsAny<Pupil>()), Times.Once);
         }
     }
 }

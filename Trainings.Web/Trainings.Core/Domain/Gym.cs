@@ -14,13 +14,16 @@ namespace Trainings.Core.Domain
 
         protected Gym() { }
 
-        public Gym(string name, string email, Position position)
+        private Gym(string name, string email, Position position)
         {
             GymId = Guid.NewGuid();
             Name = name;
             Position = Position;
             Email = email;
         }
+
+        public static Gym Create(string name, string email, Position position)
+            => new Gym(name, email, position);
 
         public void SetName(string name)
         {

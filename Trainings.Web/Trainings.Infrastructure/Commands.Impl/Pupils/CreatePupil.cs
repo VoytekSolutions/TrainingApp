@@ -1,6 +1,6 @@
-﻿namespace Trainings.Infrastructure.Commands.Users
+﻿namespace Trainings.Infrastructure.Commands.Impl.Pupils
 {
-    public class CreateUser : ICommand
+    public class CreatePupil : ICommand
     {
         public string Email { get; set; }
         public string UserName { get; set; }

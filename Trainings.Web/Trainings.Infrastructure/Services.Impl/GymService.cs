@@ -39,7 +39,7 @@ namespace Trainings.Infrastructure.Services.Impl
                 throw new Exception($"Gym with e-mail:{gym.Email} already exists.");
             }
 
-            gym = new Gym(name, email, position);
+            gym = Gym.Create(name, email, position);
 
             await GymRepository.AddGymAsync(gym);
         }

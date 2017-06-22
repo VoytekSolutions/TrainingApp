@@ -2,13 +2,13 @@
 using Newtonsoft.Json;
 using System.Net;
 using System.Threading.Tasks;
-using Trainings.Infrastructure.Commands.Users;
+using Trainings.Infrastructure.Commands.Impl.Pupils;
 using Trainings.Infrastructure.DTO;
 using Xunit;
 
 namespace Trainings.IntegrationTests.Controllers
 {
-    public class UserControllerTests : ControllerTestsBase
+    public class PupilControllerTests : ControllerTestsBase
     {
         [Fact]
         public async Task GivingValidEmailUserExists()
@@ -17,10 +17,10 @@ namespace Trainings.IntegrationTests.Controllers
             var email = "moj@email.pl";
 
             //Act
-            var user = await GetUserAsync(email);
+            var pupil = await GetPupilAsync(email);
 
             // Assert
-            user.Email.ShouldBeEquivalentTo(email);
+            pupil.Email.ShouldBeEquivalentTo(email);
         }
 
         [Fact]
@@ -30,7 +30,7 @@ namespace Trainings.IntegrationTests.Controllers
             var email = "myUnExisting@email.com";
 
             //Act
-            var response = await Client.GetAsync($"users/{email}");
+            var response = await Client.GetAsync($"pupil/{email}");
             var status404 = response.StatusCode;
 
             // Assert
@@ -41,7 +41,7 @@ namespace Trainings.IntegrationTests.Controllers
         public async Task GivingNewEmailNewUserShouldBeCreated()
         {
             //Arrange
-            var request = new CreateUser
+            var request = new CreatePupil
             {
                 Email = "test@email.com",
                 Password = "secret",
@@ -51,27 +51,27 @@ namespace Trainings.IntegrationTests.Controllers
             var payload = GetPayload(request);
 
             //Act
-            var response = await Client.PostAsync("users", payload);
+            var response = await Client.PostAsync("pupil", payload);
 
-            var user = await GetUserAsync(request.Email);
+            var pupil = await GetPupilAsync(request.Email);
 
             // Assert
             response.StatusCode.ShouldBeEquivalentTo(HttpStatusCode.Created);
-            response.Headers.Location.ToString().ShouldBeEquivalentTo($"users/{request.Email}");
+            response.Headers.Location.ToString().ShouldBeEquivalentTo($"pupil/{request.Email}");
             //Check Is User created
-            user.Email.ShouldBeEquivalentTo(request.Email);
+            pupil.Email.ShouldBeEquivalentTo(request.Email);
         }
 
-        private async Task<UserDTO> GetUserAsync(string email)
+        private async Task<PupilDTO> GetPupilAsync(string email)
         {
-            var response = await Client.GetAsync($"users/{email}");
+            var response = await Client.GetAsync($"pupil/{email}");
             response.EnsureSuccessStatusCode();
 
             var responseString = await response.Content.ReadAsStringAsync();
 
-            var user = JsonConvert.DeserializeObject<UserDTO>(responseString);
+            var pupil = JsonConvert.DeserializeObject<PupilDTO>(responseString);
 
-            return user;
+            return pupil;
         }
     }
 }

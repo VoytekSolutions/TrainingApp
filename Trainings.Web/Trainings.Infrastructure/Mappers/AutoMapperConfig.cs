@@ -12,7 +12,8 @@ namespace Trainings.Infrastructure.Mappers
         public static IMapper Initialize()
             => new MapperConfiguration(cfg =>
                 {
-                    cfg.CreateMap<User, UserDTO>();
+                    cfg.CreateMap<Pupil, PupilDTO>();
+                    cfg.CreateMap<Trainer, TrainerDTO>();
                     cfg.CreateMap<Gym, GymDTO>();
                 }).CreateMapper();
     }

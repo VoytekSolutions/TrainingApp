@@ -12,6 +12,17 @@ namespace Trainings.Core.Domain
         public double Rating { get; protected set; }
         public ISet<Pupil> Pupils => _pupils;
 
+        protected Trainer() {}
+
+        public Trainer(string email, string userName, string password)
+        {
+            UserId = Guid.NewGuid();
+            Email = email.ToLowerInvariant();
+            UserName = UserName;
+            Password = password;
+            CreatedAt = DateTime.UtcNow;
+        }
+
         public void SetRating(double rating)
         {
             Rating = rating;
@@ -36,7 +47,7 @@ namespace Trainings.Core.Domain
                 throw new InvalidOperationException($"Pupil with given email:{email}, is added to trainer");
             }
 
-            _pupils.Add(Pupil.Create(email, userName, password));
+            _pupils.Add(new Pupil(email, userName, password));
         }
 
         public void RemovePupil(Pupil pupil)
@@ -49,6 +60,18 @@ namespace Trainings.Core.Domain
             }
 
             _pupils.Remove(pupilToRemove);
+        }
+
+        public void UpdateData(Trainer trainer)
+        {
+            Email = trainer.Email;
+            FirstName = trainer.FirstName;
+            Password = trainer.Password;
+            SecondName = trainer.SecondName;
+            UserName = trainer.UserName;
+            Gym = trainer.Gym;
+            Rating = trainer.Rating;
+            _pupils = trainer.Pupils;
         }
     }
 }

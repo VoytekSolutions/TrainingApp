@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using System.Net;
 using System.Threading.Tasks;
-using Trainings.Infrastructure.Commands.Impl.Users;
+using Trainings.Infrastructure.Commands.Impl.Pupils;
 using Xunit;
 
 namespace Trainings.IntegrationTests.Controllers
@@ -12,7 +12,7 @@ namespace Trainings.IntegrationTests.Controllers
         public async Task GivingValidCurrentAndNewPasswordShouldChangePassword()
         {
             //Arrange
-            var command = new ChangeUserPassword
+            var command = new ChangePupilPassword
             {
                 CurrentPassword = "CurrentPass",
                 NewPassword = "NewMagicPassword"

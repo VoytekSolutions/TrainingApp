@@ -13,11 +13,9 @@ namespace Trainings.Core.Domain
         public string SecondName { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
 
-        protected User()
-        {
-        }
+        protected User() { }
 
-        public User(string email, string userName, string password)
+        protected User(string email, string userName, string password)
         {
             UserId = Guid.NewGuid();
             Email = email.ToLowerInvariant();
@@ -54,15 +52,6 @@ namespace Trainings.Core.Domain
         public void SetSecondName(string secondName)
         {
             SecondName = secondName;
-        }
-
-        public void UpdateData(User user)
-        {
-            Email = user.Email;
-            FirstName = user.FirstName;
-            Password = user.Password;
-            SecondName = user.SecondName;
-            UserName = user.UserName;
         }
     }
 }

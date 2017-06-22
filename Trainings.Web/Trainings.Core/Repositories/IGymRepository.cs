@@ -8,11 +8,11 @@ namespace Trainings.Core.Repositories
 {
     public interface IGymRepository : IRepository
     {
-        Task<Gym> GetGymByIdAsync(Guid Id);
+        Task<Gym> GetGymByIdAsync(Guid id);
         Task<Gym> GetGymByEmailAsync(string email);
         Task<ICollection<Gym>> GetGymsAsync();
-        Task AddGymAsync(Gym Gym);
-        Task UpdateGymAsync(Gym Gym);
-        Task RemoveGymAsync(Guid Id);
+        Task AddGymAsync(Gym gym);
+        Task UpdateGymAsync(Gym gym);
+        Task RemoveGymAsync(Guid id);
     }
 }

@@ -1,8 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Trainings.Infrastructure.Commands;
-using Trainings.Infrastructure.Commands.Impl.Users;
-using Trainings.Infrastructure.Services;
+using Trainings.Infrastructure.Commands.Impl.Pupils;
 
 namespace Trainings.Web.Controllers
 {
@@ -13,7 +12,7 @@ namespace Trainings.Web.Controllers
 
         [HttpPut("")]
         [Route("password")]
-        public async Task<IActionResult> Put([FromBody] ChangeUserPassword command)
+        public async Task<IActionResult> Put([FromBody] ChangePupilPassword command)
         {
             await CommandDispatcher.DispatchAsync(command);
 

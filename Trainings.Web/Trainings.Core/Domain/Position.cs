@@ -16,6 +16,9 @@
             SetLatitude(latitude);
         }
 
+        public static Position Create(string adress, double longitude, double latitude)
+            => new Position(adress, longitude, latitude);
+
         public void SetAdress(string adress)
         {
             Adress = adress;
@@ -30,8 +33,5 @@
         {
             Latitude = latitude;
         }
-
-        public static Position Create(string adress, double longitude, double latitude)
-            => new Position(adress, longitude, latitude);
     }
 }
