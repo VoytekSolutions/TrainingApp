@@ -8,7 +8,7 @@ namespace Trainings.Core.Domain
 
         protected Pupil() { }
 
-        public Pupil(string email, string userName, string password) : base(email, userName, password)
+        public Pupil(string email, string userName, string password, string salt) : base(email, userName, password, salt)
         {
         }
 

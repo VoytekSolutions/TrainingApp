@@ -18,6 +18,9 @@ namespace Trainings.Infrastructure.IoC.Modules
         {
             builder.RegisterInstance(Configuration.GetSettings<GeneralSettings>())
                 .SingleInstance();
+
+            builder.RegisterInstance(Configuration.GetSettings<JWTSettings>())
+                .SingleInstance();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Trainings.Infrastructure.Commands;
 using Trainings.Infrastructure.Commands.Impl.Pupils;
@@ -14,7 +15,7 @@ namespace Trainings.Web.Controllers
         {
             PupilService = pupilService;
         }
-
+        [Authorize(Policy = "admin")]
         [HttpGet("{email}")]
         [Route("getPupilByEmail")]
         public async Task<IActionResult> Get(string email)

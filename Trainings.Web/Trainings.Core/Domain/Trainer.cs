@@ -14,12 +14,13 @@ namespace Trainings.Core.Domain
 
         protected Trainer() {}
 
-        public Trainer(string email, string userName, string password)
+        public Trainer(string email, string userName, string password, string salt)
         {
             UserId = Guid.NewGuid();
             Email = email.ToLowerInvariant();
             UserName = UserName;
             Password = password;
+            Salt = salt;
             CreatedAt = DateTime.UtcNow;
         }
 
@@ -36,18 +37,6 @@ namespace Trainings.Core.Domain
         public void AddPupil(Pupil newPupil)
         {
             _pupils.Add(newPupil);
-        }
-
-        public void AddPupil(string email, string userName, string password)
-        {
-            var pupil = _pupils.SingleOrDefault(x => x.Email == email);
-
-            if (pupil != null)
-            {
-                throw new InvalidOperationException($"Pupil with given email:{email}, is added to trainer");
-            }
-
-            _pupils.Add(new Pupil(email, userName, password));
         }
 
         public void RemovePupil(Pupil pupil)

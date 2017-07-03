@@ -11,11 +11,13 @@ namespace Trainings.Infrastructure.Services.Impl
     public class PupilService : IPupilService
     {
         private readonly IPupilRepository PupilRepository;
+        private readonly IEncrypter Encrypter;
         private readonly IMapper Mapper;
 
-        public PupilService(IPupilRepository pupilRepository, IMapper mapper)
+        public PupilService(IPupilRepository pupilRepository, IEncrypter encrypter, IMapper mapper)
         {
             PupilRepository = pupilRepository;
+            Encrypter = encrypter;
             Mapper = mapper;
         }
 
@@ -28,7 +30,10 @@ namespace Trainings.Infrastructure.Services.Impl
                 throw new Exception($"Pupil with e-mail:{user.Email} already exists.");
             }
 
-            user = new Pupil(email, userName, password);
+            var salt = Encrypter.GetSalt(password);
+            var hash = Encrypter.GetHash(password, salt);
+
+            user = new Pupil(email, userName, hash, salt);
 
             await PupilRepository.AddPupilAsync(user);
         }
@@ -52,6 +57,26 @@ namespace Trainings.Infrastructure.Services.Impl
             }
 
             return pupilsDtoList;
+        }
+
+        public async Task LoginAsync(string email, string password)
+        {
+            var pupil = await PupilRepository.GetPupilByEmailAsync(email);
+
+            if (pupil != null)
+            {
+                throw new Exception($"Invalid cridentials.");
+            }
+
+            var salt = Encrypter.GetSalt(password);
+            var hash = Encrypter.GetHash(password, salt);
+
+            if (pupil.Password == hash)
+            {
+                return;
+            }
+
+            throw new Exception($"Invalid cridentials");
         }
     }
 }

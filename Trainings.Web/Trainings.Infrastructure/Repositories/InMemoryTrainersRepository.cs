@@ -11,10 +11,10 @@ namespace Trainings.Infrastructure.Repositories
     {
         private static ISet<Trainer> _trainers = new HashSet<Trainer>()
         {
-            new Trainer("mojtrainer@email.pl","UserName","Password"),
-            new Trainer("twojtrainer@email.pl","UserName2","Mordo"),
-            new Trainer("azajktrainer@email.pl","UserName3","tajne"),
-            new Trainer("siematrainer@email.pl","UserName4","Elo")
+            new Trainer("mojtrainer@email.pl","UserName","Password","salt"),
+            new Trainer("twojtrainer@email.pl","UserName2","Mordo","salt"),
+            new Trainer("azajktrainer@email.pl","UserName3","tajne","salt"),
+            new Trainer("siematrainer@email.pl","UserName4","Elo","salt")
         };
 
         public async Task AddTrainerAsync(Trainer trainer)

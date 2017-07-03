@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Trainings.Infrastructure.Services;
+using Trainings.Infrastructure.Services.Impl;
 
 namespace Trainings.Infrastructure.IoC.Modules
 {
@@ -11,6 +12,14 @@ namespace Trainings.Infrastructure.IoC.Modules
                 .Where(x => x.IsAssignableTo<IService>())
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
+
+            builder.RegisterType<Encrypter>()
+                .As<IEncrypter>()
+                .SingleInstance();
+
+            builder.RegisterType<JwtHandler>()
+                .As<IJwtHandler>()
+                .SingleInstance();
         }
     }
 }

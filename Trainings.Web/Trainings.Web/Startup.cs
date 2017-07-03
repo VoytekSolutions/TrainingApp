@@ -5,12 +5,15 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Text;
 using Trainings.Core.Repositories;
 using Trainings.Infrastructure.IoC.Modules;
 using Trainings.Infrastructure.Repositories;
 using Trainings.Infrastructure.Services;
 using Trainings.Infrastructure.Services.Impl;
+using Trainings.Infrastructure.Settings;
 
 namespace Trainings.Web
 {
@@ -33,7 +36,9 @@ namespace Trainings.Web
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+            services.AddAuthorization(x => x.AddPolicy("admin", p => p.RequireRole("admin")));
             services.AddMvc();
+
             var builder = new ContainerBuilder();
             builder.Populate(services);
             builder.RegisterModule(new ContainerModule(Configuration));
@@ -48,6 +53,19 @@ namespace Trainings.Web
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+            var jwtSettings = app.ApplicationServices.GetService<JWTSettings>();
+
+            app.UseJwtBearerAuthentication(new JwtBearerOptions
+            {
+                AutomaticAuthenticate = true,
+                TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidIssuer = jwtSettings.Issuer,
+                    ValidateAudience = false,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
+                }
+            });
 
             app.UseMvc();
             appLifetime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());

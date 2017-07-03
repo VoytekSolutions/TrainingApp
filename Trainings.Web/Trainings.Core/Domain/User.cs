@@ -8,6 +8,7 @@ namespace Trainings.Core.Domain
         public Guid UserId { get; protected set; }
         public string Email { get; protected set; }
         public string Password { get; protected set; }
+        public string Salt { get; protected set; }
         public string UserName { get; protected set; }
         public string FirstName { get; protected set; }
         public string SecondName { get; protected set; }
@@ -15,12 +16,13 @@ namespace Trainings.Core.Domain
 
         protected User() { }
 
-        protected User(string email, string userName, string password)
+        protected User(string email, string userName, string password, string salt)
         {
             UserId = Guid.NewGuid();
             Email = email.ToLowerInvariant();
             UserName = UserName;
             Password = password;
+            Salt = salt;
             CreatedAt = DateTime.UtcNow;
         }
 

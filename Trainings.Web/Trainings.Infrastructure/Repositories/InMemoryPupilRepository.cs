@@ -11,10 +11,10 @@ namespace Trainings.Infrastructure.Repositories
     {
         private static ISet<Pupil> _pupils = new HashSet<Pupil>()
         {
-            new Pupil("moj@email.pl","UserName","Password"),
-            new Pupil("twoj@email.pl","UserName2","Mordo"),
-            new Pupil("azajk@email.pl","UserName3","tajne"),
-            new Pupil("siema@email.pl","UserName4","Elo")
+            new Pupil("moj@email.pl","UserName","Password","salt"),
+            new Pupil("twoj@email.pl","UserName2","Mordo","salt"),
+            new Pupil("azajk@email.pl","UserName3","tajne","salt"),
+            new Pupil("siema@email.pl","UserName4","Elo","salt")
         };
 
         public async Task AddPupilAsync(Pupil pupil)
