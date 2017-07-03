@@ -11,7 +11,7 @@ namespace Trainings.IntegrationTests.Controllers
     public class PupilControllerTests : ControllerTestsBase
     {
         [Fact]
-        public async Task GivingValidEmailUserExists()
+        public async Task GivingValidEmailPupilExists()
         {
             // Arrange
             var email = "moj@email.pl";
@@ -24,7 +24,7 @@ namespace Trainings.IntegrationTests.Controllers
         }
 
         [Fact]
-        public async Task GivingNotRegisteredEmailUserDoesntExists()
+        public async Task GivingNotRegisteredEmailPupilDoesntExists()
         {
             //Arrange
             var email = "myUnExisting@email.com";
@@ -38,7 +38,7 @@ namespace Trainings.IntegrationTests.Controllers
         }
 
         [Fact]
-        public async Task GivingNewEmailNewUserShouldBeCreated()
+        public async Task GivingNewEmailNewPupilShouldBeCreated()
         {
             //Arrange
             var request = new CreatePupil
